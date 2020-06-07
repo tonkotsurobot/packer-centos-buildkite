@@ -1,0 +1,66 @@
+
+#Install packages
+- hosts: all
+  become: yes
+  tasks:
+    - name: Allow 'wheel' group to have passwordless sudo
+      lineinfile:
+        dest: /etc/sudoers
+        state: present
+        regexp: '^%wheel'
+        line: '%wheel ALL=(ALL) NOPASSWD: ALL'
+        validate: 'visudo -cf %s'
+
+    - name: Install a list of packages
+      yum:
+        name: "{{ packages }}"
+        update_cache: yes
+      vars:
+        packages:
+        - unzip
+        - perl
+        - vim-enhanced
+        - nfs-utils
+
+    - name: remove the firewalld package  
+      yum:  
+        name: firewalld 
+        state: absent
+
+    - name: remove packer symbolic link
+      file:
+        state: absent
+        path: "/usr/sbin/packer"
+
+    - name: download packer
+      get_url:
+        url: "http://192.168.1.30:8000/bin/packer"
+        dest: /usr/bin/packer
+        owner: root
+        group: root
+        mode: 0755
+
+    - name: download terraform
+      get_url:
+        url: "http://192.168.1.30:8000/bin/terraform"
+        dest: /usr/bin/terraform
+        owner: root
+        group: root
+        mode: 0755
+
+    - name: mount nfs:/nfs-drive-1
+      mount:
+        path: /mnt/nfs-drive-1
+        src: 192.168.1.30:/nfs-drive-1
+        opts: rw
+        state: mounted
+        fstype: nfs
+
+    - name: Make buildkite-agent own /mnt/nfs-drive-1
+      file:
+        path: /mnt/nfs-drive-1
+        state: directory
+        recurse: yes
+        owner: buildkite-agent
+        group: buildkite-agent
+
