@@ -64,3 +64,9 @@
         owner: buildkite-agent
         group: buildkite-agent
 
+    - name: Download rke
+      get_url:
+        url: https://github.com/rancher/rke/releases/download/v1.1.2/rke_linux-amd64
+        dest: /usr/local/bin/rke
+        mode: '0775'
+
