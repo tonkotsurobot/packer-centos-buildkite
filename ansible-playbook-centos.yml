@@ -21,6 +21,9 @@
         - perl
         - vim-enhanced
         - nfs-utils
+        - docker-ce 
+        - docker-ce-cli 
+        - containerd.io
 
     - name: remove the firewalld package  
       yum:  
@@ -69,4 +72,19 @@
         url: https://github.com/rancher/rke/releases/download/v1.1.2/rke_linux-amd64
         dest: /usr/local/bin/rke
         mode: '0775'
+
+    - name: Start service docker, if not started
+      service:
+        name: docker
+        state: started
+        enabled: yes
+
+    - name: Append the user 'emario' to "docker" group
+      user:
+        name: 
+          - emario
+          - buildkite-agent
+        groups: docker
+        append: yes
+
 
