@@ -39,18 +39,24 @@
       get_url:
         url: "http://192.168.1.30:8000/bin/packer"
         dest: /usr/local/bin/packer
+        owner: buildkite-agent
+        group: buildkite-agent
         mode: 0775
 
     - name: download terraform
       get_url:
         url: "http://192.168.1.30:8000/bin/terraform"
         dest: /usr/local/bin/terraform
+        owner: buildkite-agent
+        group: buildkite-agent
         mode: 0775
 
     - name: download docker-compose
       get_url:
         url: "http://192.168.1.30:8000/bin/docker-compose"
         dest: /usr/local/bin/docker-compose
+        owner: buildkite-agent
+        group: buildkite-agent
         mode: 0775
 
     - name: mount nfs:/nfs-drive-1
