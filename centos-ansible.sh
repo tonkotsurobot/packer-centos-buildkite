@@ -26,4 +26,3 @@ wget http://192.168.1.30:8000/config/buildkite-ssh-config -O /var/lib/buildkite-
 chown -R buildkite-agent:buildkite-agent /var/lib/buildkite-agent/
 chmod -R 700 /var/lib/buildkite-agent/.ssh/
 systemctl enable buildkite-agent && sudo systemctl start buildkite-agent
-

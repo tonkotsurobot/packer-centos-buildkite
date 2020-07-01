@@ -81,9 +81,13 @@
 
     - name: Append the user 'emario' to "docker" group
       user:
-        name: 
-          - emario
-          - buildkite-agent
+        name: emario
+        groups: docker
+        append: yes
+
+    - name: Append the user 'buildkite-agent' to "docker" group
+      user:
+        name: buildkite-agent
         groups: docker
         append: yes
 
