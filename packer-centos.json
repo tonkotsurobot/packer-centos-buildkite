@@ -55,12 +55,8 @@
       "destination": "/tmp/sshd_config"
     },
     {
-       "type": "shell",
-       "inline": ["cd /tmp && wget http://192.168.1.30:8000/scripts/centos-bkagent.sh"]
-     },
-    {
       "inline": [
-        "chmod a+x /tmp/centos-bkagent.sh && /tmp/centos-bkagent.sh"
+        "chmod u+x centos-ansible.sh && centos-ansible.sh"
       ],
       "type": "shell",
       "execute_command": "echo 'tempuser' | {{ .Vars }} sudo -E -S bash '{{ .Path }}'"
