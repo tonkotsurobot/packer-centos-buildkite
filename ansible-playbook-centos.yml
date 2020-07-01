@@ -51,6 +51,14 @@
         group: root
         mode: 0755
 
+    - name: download docker-compose
+      get_url:
+        url: "http://192.168.1.30:8000/bin/docker-compose"
+        dest: /usr/bin/docker-compose
+        owner: root
+        group: root
+        mode: 0755
+
     - name: mount nfs:/nfs-drive-1
       mount:
         path: /mnt/nfs-drive-1
