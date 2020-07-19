@@ -5,11 +5,4 @@ steps:
       automatic: true 
     agents:
       home: "true"
-
-  - wait
-    
-  - trigger: "tf-centos-bkagent-vsphere"
-    label: ":sidekiq: Redeploy VM"
-
-
     
